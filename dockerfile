@@ -33,11 +33,20 @@ ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
+# Install xformers
+RUN pip install --no-cache-dir xformers
+
+# Install flash-attention
+RUN pip install --no-cache-dir flash-attn --no-build-isolation
+
 # Install other Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make output directory
-RUN mkdir -p /app/outputs
+# Create directories for volumes
+RUN mkdir -p /app/outputs /app/hf_download
+
+# Define volumes to persist data
+VOLUME ["/app/hf_download", "/app/outputs"]
 
 # Expose the port that Gradio runs on
 EXPOSE 7860
