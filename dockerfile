@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
     build-essential \
     ninja-build \
+    cmake \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up working directory
@@ -37,8 +39,13 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Install xformers (optional for better performance)
 RUN pip install --no-cache-dir xformers
 
-# Install sage-attention (optional, mentioned in README)
-#RUN pip install --no-cache-dir sageattention==1.0.6
+# Install flash-attention with specific flags to help with build
+RUN pip install --no-cache-dir --verbose numpy && \
+    pip install --no-cache-dir --verbose packaging && \
+    pip install --no-cache-dir --verbose flash-attn==2.5.5 --no-build-isolation
+
+# Commented out sage-attention as requested
+# RUN pip install --no-cache-dir sageattention==1.0.6
 
 # Install other Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -49,8 +56,8 @@ RUN mkdir -p /app/outputs /app/hf_download
 # Define volumes to persist data
 VOLUME ["/app/hf_download", "/app/outputs"]
 
-# Expose the port that Gradio runs on
+# Expose fixed port 7860
 EXPOSE 7860
 
-# Command to run the application using the PORT environment variable
-CMD python demo_gradio.py --server 0.0.0.0
+# Command to run the application with fixed port
+CMD python demo_gradio.py --server 0.0.0.0 --port 7860
