@@ -43,4 +43,4 @@ RUN mkdir -p /app/outputs
 EXPOSE 7860
 
 # Command to run the application
-CMD ["python", "demo_gradio.py", "--server", "0.0.0.0", "--port", "${PORT}"]
+CMD ["python", "demo_gradio.py", "--server", "0.0.0.0"]
