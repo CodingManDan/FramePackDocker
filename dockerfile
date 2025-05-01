@@ -1,5 +1,6 @@
 # Use NVIDIA CUDA 12.6 with Python 3.10 as base image
-FROM nvidia/cuda:12.6.0-runtime-ubuntu22.04
+#FROM nvidia/cuda:12.6.0-runtime-ubuntu22.04
+FROM nvidia/cuda:12.6.0-devel-ubuntu22.04
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -42,9 +43,12 @@ RUN pip install --no-cache-dir xformers
 # Install flash-attention with specific flags to help with build
 RUN pip install --no-cache-dir --verbose numpy && \
     pip install --no-cache-dir --verbose packaging && \
-    pip install --no-cache-dir https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.0.7/flash_attn-2.4.3+cu126torch2.6-cp310-cp310-linux_x86_64.whl
+    pip install --no-cache-dir --verbose wheel && \
+    pip install --no-cache-dir --verbose ninja && \
+    pip install --no-cache-dir flash-attn==2.5.5 --no-build-isolation
 
-# Commented out sage-attention
+
+# sage-attention, commented out due to degraded results
 # RUN pip install --no-cache-dir sageattention==1.0.6
 
 # Install other Python dependencies
