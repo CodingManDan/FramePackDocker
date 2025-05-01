@@ -29,8 +29,8 @@ WORKDIR /app
 RUN git clone https://github.com/lllyasviel/FramePack.git /app
 
 # Create and activate virtual environment
-RUN python3.10 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+#RUN python3.10 -m venv /opt/venv
+#ENV PATH="/opt/venv/bin:$PATH"
 
 # Install PyTorch with CUDA 12.6 support
 RUN pip install --no-cache-dir --upgrade pip && \
@@ -42,9 +42,10 @@ RUN pip install --no-cache-dir xformers
 # Install flash-attention with specific flags to help with build
 RUN pip install --no-cache-dir --verbose numpy && \
     pip install --no-cache-dir --verbose packaging && \
+    pip install --no-cache-dir --verbose wheel && \
     pip install --no-cache-dir --verbose flash-attn==2.5.5 --no-build-isolation
 
-# Commented out sage-attention as requested
+# Commented out sage-attention
 # RUN pip install --no-cache-dir sageattention==1.0.6
 
 # Install other Python dependencies
@@ -59,5 +60,5 @@ VOLUME ["/app/hf_download", "/app/outputs"]
 # Expose fixed port 7860
 EXPOSE 7860
 
-# Command to run the application with fixed port
-CMD python demo_gradio.py --server 0.0.0.0 --port 7860
+# Command to run the application
+CMD python demo_gradio.py --server 0.0.0.0
