@@ -1,6 +1,6 @@
 # FramePack Docker
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/codingmandan/framepack/docker-image.yml?branch=main&style=flat-square)](https://github.com/codingmandan/framepack)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/CodingManDan/FramePackDocker/docker-image.yml?branch=main&style=flat-square)](https://github.com/CodingManDan/FramePackDocker)
 [![Docker Pulls](https://img.shields.io/docker/pulls/codingmandan/framepack?style=flat-square)](https://hub.docker.com/r/codingmandan/framepack)
 [![Docker Image Size](https://img.shields.io/docker/image-size/codingmandan/framepack?style=flat-square)](https://hub.docker.com/r/codingmandan/framepack)
 [![License](https://img.shields.io/github/license/lllyasviel/FramePack?style=flat-square)](https://github.com/lllyasviel/FramePack)
