@@ -30,7 +30,12 @@ jobs:
           tags: |
             type=raw,value=latest
             type=sha,format=short
-      
+            type=semver,pattern={{version}},value=1.0.0
+          labels: |
+            org.opencontainers.image.version=1.0.0
+            org.opencontainers.image.title=FramePack
+            org.opencontainers.image.description=FramePack Custom Docker Image
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
